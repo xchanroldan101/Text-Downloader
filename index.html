@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -88,11 +88,33 @@
             font-weight: 600;
             cursor: pointer;
             margin-bottom: 20px;
+            transition: background-color 0.2s;
         }
         button:hover {
             background-color: #005ecb;
         }
         
+        /* New Button Layout Cluster */
+        .auth-actions-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .secondary-btn {
+            background-color: #6c757d;
+            margin-bottom: 0;
+        }
+        .secondary-btn:hover {
+            background-color: #5a6268;
+        }
+        .danger-btn {
+            background-color: #dc3545;
+            margin-bottom: 0;
+        }
+        .danger-btn:hover {
+            background-color: #bd2130;
+        }
+
         .github-footer {
             display: flex;
             justify-content: center;
@@ -139,6 +161,12 @@
         </div>
         
         <button id="downloadBtn">Download File</button>
+
+        <!-- New Authentication Interface Buttons -->
+        <div class="auth-actions-row">
+            <button id="signOutBtn" class="secondary-btn">Sign Out</button>
+            <button id="deleteAccountBtn" class="danger-btn">Delete Account</button>
+        </div>
         
         <div class="github-footer">
             <a class="github-btn" href="https://github.com/xchanroldan101/Text-Downloader" target="_blank">
@@ -181,11 +209,30 @@
         
         document.body.appendChild(a);
         a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        
+        // Mobile-Fix: Delay file revocation so Android Chrome doesn't break
+        setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }, 250);
+    });
+
+    // Sign Out Pop-up Script
+    document.getElementById('signOutBtn').addEventListener('click', function() {
+        if (confirm("Are you sure you want to sign out of your profile session?")) {
+            alert("Signed out successfully! (Simulation)");
+        }
+    });
+
+    // Delete Account Pop-up Script (Double confirmation workflow)
+    document.getElementById('deleteAccountBtn').addEventListener('click', function() {
+        if (confirm("WARNING: Are you sure you want to delete your account? This action is completely permanent.")) {
+            if (confirm("Final confirmation: Press OK to wipe all data records forever.")) {
+                alert("Account deleted! (Simulation)");
+            }
+        }
     });
     </script>
 
 </body>
 </html>
-
