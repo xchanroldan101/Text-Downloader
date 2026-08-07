@@ -1,3 +1,32 @@
+// Function to handle the actual file conversion and download trigger
+document.addEventListener("DOMContentLoaded", () => {
+    const downloadButton = document.querySelector('.container button, #download-btn, button'); // Selects your button
+    const fileNameInput = document.querySelector('input[type="text"]');                         // Selects your file name box
+    const fileTextArea = document.querySelector('textarea');                                    // Selects your file content box
+
+    if (downloadButton && fileTextArea) {
+        downloadButton.addEventListener('click', () => {
+            // Get the text values or fall back to defaults if empty
+            const textContent = fileTextArea.value;
+            const fileName = fileNameInput && fileNameInput.value.trim() !== "" ? fileNameInput.value.trim() : "document.txt";
+
+            // Create a temporary downloadable data blob layer
+            const blob = new Blob([textContent], { type: "text/plain;charset=utf-8" });
+            const link = document.createElement("a");
+            
+            // Generate a virtual URL path for the file download pipeline
+            link.href = URL.createObjectURL(blob);
+            link.download = fileName;
+            
+            // Append link, click it programmatically, then clean it up out of memory
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+    }
+});
+
 // --- File Generation Strategy ---
 document.getElementById('downloadBtn').addEventListener('click', function () {
     const textContent = document.getElementById('textInput').value;
