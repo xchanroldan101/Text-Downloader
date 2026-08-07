@@ -145,9 +145,9 @@ button:hover {
     fill: currentColor;
 }
 .home-btn {
-    position: absolute; /* Frees it from the body flex layout flow */
-    top: 20px;          /* Places it near the top edge */
-    left: 20px;         /* Places it near the left edge */
+    position: absolute !important; /* Frees it from the body flex layout flow */
+    top: 20px !important;          /* Places it near the top edge */
+    left: 20px !important;         /* Places it near the left edge */
     width: 32px;        
     height: 32px;       
     display: inline-flex;
