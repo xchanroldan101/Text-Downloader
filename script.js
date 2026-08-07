@@ -68,3 +68,21 @@ function setWebsiteCookie(cookieName, cookieValue, daysToLive) {
 
 // Example: Save the user's favorite layout theme for 7 days
 setWebsiteCookie("theme", "dark", 7);
+// Function to find a specific cookie value
+function getWebsiteCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    
+    for (let i = 0; i < cookieArray.length; i++) {
+        let cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    return ""; // Returns empty if cookie does not exist
+}
+
+// Example: Check if a theme cookie is saved
+const currentTheme = getWebsiteCookie("theme");
+console.log("Saved theme is: " + currentTheme); // Output: "dark"
