@@ -55,19 +55,19 @@ document.getElementById('deleteAccountBtn').addEventListener('click', function()
         }
     }
 });
-// Function to save data in a cookie
+// Function to save data in a cook
 function setWebsiteCookie(cookieName, cookieValue, daysToLive) {
-    const date = new Date();
-    // Convert days into milliseconds
+    const date = new Date()
+    // Convert days into millisecond
     date.setTime(date.getTime() + (daysToLive * 24 * 60 * 60 * 1000));
-    const expires = "expires=" + date.toUTCString();
+    const expires = "expires=" + date.toUTCString()
     
     // Securely lock the cookie path to your root site
     document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/;SameSite=Strict";
 }
 
 // Example: Save the user's favorite layout theme for 7 days
-setWebsiteCookie("theme", "dark", 7);
+
 // Function to find a specific cookie value
 function getWebsiteCookie(cookieName) {
     const name = cookieName + "=";
@@ -84,7 +84,7 @@ function getWebsiteCookie(cookieName) {
 }
 
 // Example: Check if a theme cookie is saved
-const currentTheme = getWebsiteCookie("theme");
+
 console.log("Saved theme is: " + currentTheme); // Output: "dark"
 // Function to clear a cookie
 function deleteWebsiteCookie(cookieName) {
@@ -92,3 +92,19 @@ function deleteWebsiteCookie(cookieName) {
 }
 
 // Example: Wipe the theme setting
+// Automatically save text content to a cookie as the user types
+const fileContentTextArea = document.querySelector('textarea');
+if (fileContentTextArea) {
+    fileContentTextArea.addEventListener('input', (event) => {
+        setWebsiteCookie("savedText", event.target.value, 7);
+    });
+}
+
+// Reload the saved text automatically when the page loads
+document.addEventListener("DOMContentLoaded", () => {
+    const restoredText = getWebsiteCookie("savedText");
+    const targetTextArea = document.querySelector('textarea');
+    if (restoredText && targetTextArea) {
+        targetTextArea.value = restoredText;
+    }
+});
