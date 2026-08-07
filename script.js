@@ -86,3 +86,9 @@ function getWebsiteCookie(cookieName) {
 // Example: Check if a theme cookie is saved
 const currentTheme = getWebsiteCookie("theme");
 console.log("Saved theme is: " + currentTheme); // Output: "dark"
+// Function to clear a cookie
+function deleteWebsiteCookie(cookieName) {
+    document.cookie = cookieName + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;SameSite=Strict";
+}
+
+// Example: Wipe the theme setting
