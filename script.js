@@ -55,3 +55,16 @@ document.getElementById('deleteAccountBtn').addEventListener('click', function()
         }
     }
 });
+// Function to save data in a cookie
+function setWebsiteCookie(cookieName, cookieValue, daysToLive) {
+    const date = new Date();
+    // Convert days into milliseconds
+    date.setTime(date.getTime() + (daysToLive * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    
+    // Securely lock the cookie path to your root site
+    document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/;SameSite=Strict";
+}
+
+// Example: Save the user's favorite layout theme for 7 days
+setWebsiteCookie("theme", "dark", 7);
